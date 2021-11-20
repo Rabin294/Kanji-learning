@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./kanji.styles.css";
 
 export default function Kanji(props) {

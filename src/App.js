@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import KanjiList from "./components/kanji_list/kanji.component";
+import Pagination from "./components/pagination/pagination";
+
 import { SearchBox } from "./components/search-box/search.component";
 
 class App extends Component {
@@ -85,8 +87,8 @@ class App extends Component {
         },
       ],
       searchField: "",
-      kanjisPerPage: 10,
-      page: 1,
+      kanjisPerPage: 5,
+      currentPage: 1,
     };
   }
   // componentDidMount() {
@@ -98,76 +100,20 @@ class App extends Component {
     // const changeText = function (e) {
     //   this.setState({ searchField: e.target.value });
     // };
-    const { kanjis, searchField } = this.state;
+    const { kanjis, searchField, kanjisPerPage, currentPage } = this.state;
 
-    const filterKanjis = kanjis.filter((kanji) =>
+    //getKanjisPerPage
+    // const start = (currentPage - 1) * kanjisPerPage;
+    const end = currentPage * kanjisPerPage;
+    const start = end - kanjisPerPage;
+    const getKanjisPerPage = kanjis.slice(start, end);
+
+    //Change page
+    const paginate = (pageNumber) => this.setState({ currentPage: pageNumber });
+
+    const filterKanjis = getKanjisPerPage.filter((kanji) =>
       kanji.character.toLowerCase().includes(searchField.toLowerCase())
     );
-
-    // const getKanjisPerPage = function (page) {
-    //   const start = (page - 1) * kanjisPerPage;
-    //   const end = page * kanjisPerPage;
-    //   return this.state.kanjis.slice(start, end);
-    // };
-
-    // const generateMarkUp = () => {
-    //   const numPages = Math.ceil(
-    //     this.state.searchField.length / this.state.kanjisPerPage
-    //   );
-    //   console.log(numPages);
-
-    //   //Page 1, and there are other pages
-    //   if (this.state.page === 1 && numPages > 1) {
-    //     return `
-    //           <button data-goto="${
-    //             this.state.page + 1
-    //           }" class="btn--inline pagination__btn--next">
-    //            <span>Page ${this.state.page + 1}</span>
-    //             <svg class="search__icon">
-    //               <use href="${icons}#icon-arrow-right"></use>
-    //            </svg>
-    //           </button>`;
-    //   }
-
-    //   //Last Page
-    //   if (this.state.page === numPages && numPages > 1) {
-    //     return `
-    //     <button  data-goto="${
-    //       this.state.page - 1
-    //     }" class="btn--inline pagination__btn--prev">
-    //        <svg class="search__icon">
-    //           <use href="${icons}#icon-arrow-left"></use>
-    //         </svg>
-    //        <span>Page ${this.state.page - 1}</span>
-    //       </button>
-    //   `;
-    //   }
-
-    //   //Other page
-    //   if (this.state.page < numPages) {
-    //     return `
-    //     <button  data-goto="${
-    //       this.state.page - 1
-    //     }" class="btn--inline pagination__btn--prev">
-    //        <svg class="search__icon">
-    //           <use href="${icons}#icon-arrow-left"></use>
-    //         </svg>
-    //        <span>Page ${this.state.page - 1}</span>
-    //       </button>
-    //     <button data-goto="${
-    //       this.state.page + 1
-    //     }" class="btn--inline pagination__btn--next">
-    //      <span>Page ${this.state.page + 1}</span>
-    //       <svg class="search__icon">
-    //         <use href="${icons}#icon-arrow-right"></use>
-    //      </svg>
-    //     </button>
-    //     `;
-    //   }
-
-    //   // Page 1 and there are No other pages
-    //   return "";
-    // };
 
     return (
       <div className="App">
@@ -176,8 +122,12 @@ class App extends Component {
           placeholder="search kanji"
           handleChange={(e) => this.setState({ searchField: e.target.value })}
         />
-
         <KanjiList kanjis={filterKanjis} />
+        <Pagination
+          kanjisPerPage={kanjisPerPage}
+          totalKanjis={kanjis.length}
+          paginate={paginate}
+        />
       </div>
     );
   }
