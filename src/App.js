@@ -57,7 +57,7 @@ class App extends Component {
         },
         {
           character: "下手",
-          eaning: "bad at",
+          meaning: "bad at",
           id: 10,
         },
         {
@@ -85,6 +85,81 @@ class App extends Component {
           meaning: "bad at",
           id: 15,
         },
+        {
+          character: "美しい",
+          meaning: "beautiful",
+          id: 16,
+        },
+        {
+          character: "新しい",
+          meaning: "new",
+          id: 17,
+        },
+        {
+          character: "古い",
+          meaning: "tall",
+          id: 18,
+        },
+        {
+          character: "上手",
+          meaning: "Good at",
+          id: 19,
+        },
+        {
+          character: "下手",
+          eaning: "bad at",
+          id: 20,
+        },
+        {
+          character: "美しい",
+          meaning: "beautiful",
+          id: 21,
+        },
+        {
+          character: "新しい",
+          meaning: "new",
+          id: 22,
+        },
+        {
+          character: "古い",
+          meaning: "tall",
+          id: 23,
+        },
+        {
+          character: "上手",
+          meaning: "Good at",
+          id: 24,
+        },
+        {
+          character: "下手",
+          meaning: "bad at",
+          id: 25,
+        },
+        {
+          character: "美しい",
+          meaning: "beautiful",
+          id: 26,
+        },
+        {
+          character: "新しい",
+          meaning: "new",
+          id: 27,
+        },
+        {
+          character: "古い",
+          meaning: "tall",
+          id: 28,
+        },
+        {
+          character: "上手",
+          meaning: "Good at",
+          id: 29,
+        },
+        {
+          character: "下手",
+          meaning: "bad at",
+          id: 30,
+        },
       ],
       searchField: "",
       kanjisPerPage: 5,
@@ -111,6 +186,7 @@ class App extends Component {
     //Change page
     const paginate = (pageNumber) => this.setState({ currentPage: pageNumber });
 
+    //Filter on serch
     const filterKanjis = getKanjisPerPage.filter((kanji) =>
       kanji.character.toLowerCase().includes(searchField.toLowerCase())
     );

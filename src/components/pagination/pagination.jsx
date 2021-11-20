@@ -1,9 +1,14 @@
 import React from "react";
+import "./pagination.styles.css";
 
-function Pagination(kanjisPerPage, totalKanjis, paginate) {
+function Pagination(props) {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalKanjis / kanjisPerPage); i++) {
+  for (
+    let i = 1;
+    i <= Math.ceil(props.totalKanjis / props.kanjisPerPage);
+    i++
+  ) {
     pageNumbers.push(i);
   }
   return (
@@ -11,7 +16,11 @@ function Pagination(kanjisPerPage, totalKanjis, paginate) {
       <ul className="pagination">
         {pageNumbers.map((number) => (
           <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} href="!#" className="page-link">
+            <a
+              onClick={() => props.paginate(number)}
+              href="!#"
+              className="page-link"
+            >
               {number}
             </a>
           </li>
